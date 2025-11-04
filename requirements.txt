@@ -1,0 +1,11 @@
+tensorflow
+keras
+opencv-python
+numpy
+matplotlib
+fastapi
+uvicorn
+pydantic
+sqlalchemy
+psycopg2-binary
+python-multipart
