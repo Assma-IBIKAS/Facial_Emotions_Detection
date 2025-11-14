@@ -14,6 +14,7 @@ jobs:
       HOST: localhost
       PORT: 5432
       DATABASE: test_db
+      PGPASSWORD: postgres
 
     steps:
       - name: Checkout du code
@@ -26,13 +27,24 @@ jobs:
 
       - name: Installer PostgreSQL
         run: |
-          sudo apt-get update
-          sudo apt-get install postgresql postgresql-contrib -y
-          sudo service postgresql start
+          choco install postgresql --params '/Password:postgres' -y
+          $env:PATH += ";C:\Program Files\PostgreSQL\16\bin"
+          [Environment]::SetEnvironmentVariable("PATH", $env:PATH, "Machine")
+        shell: powershell
 
-          # Création de l'utilisateur et de la base de test
-          sudo -u postgres psql -c "CREATE USER $USER_DB WITH PASSWORD '$PASSWORD';"
-          sudo -u postgres psql -c "CREATE DATABASE $DATABASE OWNER $USER_DB;"
+      - name: Attendre le démarrage de PostgreSQL
+        run: |
+          Start-Sleep -Seconds 10
+          $env:PATH += ";C:\Program Files\PostgreSQL\16\bin"
+        shell: powershell
+
+      - name: Configurer PostgreSQL
+        run: |
+          $env:PATH += ";C:\Program Files\PostgreSQL\16\bin"
+          $env:PGPASSWORD = "postgres"
+          psql -U postgres -c "CREATE USER $env:USER_DB WITH PASSWORD '$env:PASSWORD';"
+          psql -U postgres -c "CREATE DATABASE $env:DATABASE OWNER $env:USER_DB;"
+        shell: powershell
 
       - name: Installer les dépendances
         run: |
