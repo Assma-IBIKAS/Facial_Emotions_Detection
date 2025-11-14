@@ -2,3 +2,4 @@ venv
 data
 haarcascade.ipynb
 env
+__pycache__
