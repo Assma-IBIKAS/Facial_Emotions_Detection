@@ -41,7 +41,7 @@ jobs:
       - name: Configurer PostgreSQL
         run: |
           $env:PATH += ";C:\Program Files\PostgreSQL\18\bin"
-          $env:PGPASSWORD = "postgres"
+          $env:PGPASSWORD = "0000"
           psql -U postgres -c "CREATE USER $env:USER_DB WITH PASSWORD '$env:PASSWORD';"
           psql -U postgres -c "CREATE DATABASE $env:DATABASE OWNER $env:USER_DB;"
         shell: powershell
