@@ -13,11 +13,11 @@ def test_model_load():
     assert model is not None
 
 def test_format():
-    res = client.get("/History")            #? Envoyer une requête GET à l'endpoint /history | r contient la réponse de ton endpoint.
+    res = client.get("/History")            
     assert res.status_code == 200, f"Status code incorrect: {res.status_code}"
-    data = res.json()                       #? Transforme la réponse en JSON (r.json()) et vérifie que c'est une liste.
+    data = res.json()                       
     assert isinstance(data, list), f"Expected list, got {type(data)}"
-    if data:  # Si la liste n'est pas vide
+    if data:
         pred = data[0]
         required_keys = ["id","emotion", "confidence", "date"]
         for key in required_keys:
