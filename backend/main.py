@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI, UploadFile, File,Depends
 from app.database import Base, engine, get_db
 from app.models import prediction_model
-from notebooks.HaarCascade import my_model_prediction
+from notebooks.detect_and_predict import my_model_prediction
 import aiofiles,uuid
 import numpy as np
 from sqlalchemy.orm import Session
