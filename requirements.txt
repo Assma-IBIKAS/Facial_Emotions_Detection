@@ -13,4 +13,5 @@ python-dotenv
 asyncpg
 psycopg2
 aiofiles
-
+pytest
+pytest-html
