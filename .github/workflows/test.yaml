@@ -28,19 +28,19 @@ jobs:
       - name: Installer PostgreSQL
         run: |
           choco install postgresql --params '/Password:postgres' -y
-          $env:PATH += ";C:\Program Files\PostgreSQL\16\bin"
+          $env:PATH += ";C:\Program Files\PostgreSQL\18\bin"
           [Environment]::SetEnvironmentVariable("PATH", $env:PATH, "Machine")
         shell: powershell
 
       - name: Attendre le démarrage de PostgreSQL
         run: |
           Start-Sleep -Seconds 10
-          $env:PATH += ";C:\Program Files\PostgreSQL\16\bin"
+          $env:PATH += ";C:\Program Files\PostgreSQL\18\bin"
         shell: powershell
 
       - name: Configurer PostgreSQL
         run: |
-          $env:PATH += ";C:\Program Files\PostgreSQL\16\bin"
+          $env:PATH += ";C:\Program Files\PostgreSQL\18\bin"
           $env:PGPASSWORD = "postgres"
           psql -U postgres -c "CREATE USER $env:USER_DB WITH PASSWORD '$env:PASSWORD';"
           psql -U postgres -c "CREATE DATABASE $env:DATABASE OWNER $env:USER_DB;"
